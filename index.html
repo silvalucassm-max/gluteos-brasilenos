@@ -53,22 +53,29 @@ fbq('init','PIXEL_ID'); fbq('track','PageView');
   <div class="screen is-active" id="preQuiz">
     <section class="prehero">
 
-      <div class="prehero__media">
-        <img src="assets/img/1prequiz.webp"
-             alt="Coach Luca corrigiendo la activación del glúteo"
-             width="1000" height="1780" fetchpriority="high">
+      <!-- 1 · TITULAR -->
+      <div class="prehero__head">
+        <h1>
+          Transforma tu cuerpo en apenas 28 días
+          <em>y con apenas 8 minutos por día</em>
+        </h1>
       </div>
 
-      <div class="prehero__body">
-        <h1>
-          Transforma tu cuerpo en 28 días
-          <em>con 8 minutos por día</em>
-        </h1>
+      <!-- 2 · FOTO -->
+      <div class="prehero__media">
+        <img src="assets/img/1prequiz.webp"
+             alt="Coach Luca corrigiendo la activación del glúteo de una alumna"
+             width="941" height="1672" fetchpriority="high">
+      </div>
 
-        <p class="prehero__sub">
-          Sin gimnasio y sin rellenos. Responde el test y recibe tu plan personalizado.
+      <!-- 3 · APOYO + BOTÓN -->
+      <div class="prehero__body">
+        <p class="prehero__sub">¡Sin necesidad de gimnasio ni rellenos!</p>
+        <p class="prehero__sub2">
+          ¡Responde el test rápido y recibe ya tu entrenamiento personalizado!
         </p>
 
+        <p class="prehero__kicker">¡Toca el botón de abajo!</p>
         <p class="prehero__arrows" aria-hidden="true">👇🏽 👇🏽 👇🏽</p>
 
         <button class="btn btn--pulse" type="button" onclick="goCoach()">¡Quiero empezar!</button>

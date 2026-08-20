@@ -66,18 +66,13 @@ fbq('init','PIXEL_ID'); fbq('track','PageView');
         </h1>
 
         <p class="prehero__sub">
-          Sin gimnasio y sin rellenos. Solo tu peso corporal y la secuencia correcta.
+          Sin gimnasio y sin rellenos. Responde el test y recibe tu plan personalizado.
         </p>
 
-        <p class="prehero__kicker">
-          Responde el test rápido y recibe tu entrenamiento personalizado
-        </p>
         <p class="prehero__arrows" aria-hidden="true">👇🏽 👇🏽 👇🏽</p>
 
-        <button class="btn btn--pulse" type="button" onclick="goCoach()">¡Empezar ahora!</button>
-        <span class="btn-note" style="color:rgba(255,255,255,.55)">
-          10 preguntas · menos de 2 minutos
-        </span>
+        <button class="btn btn--pulse" type="button" onclick="goCoach()">¡Quiero empezar!</button>
+        <span class="btn-note">10 preguntas · menos de 2 minutos</span>
 
         <p class="prehero__warn">⚡ Un solo test gratuito por persona</p>
       </div>
@@ -97,8 +92,8 @@ fbq('init','PIXEL_ID'); fbq('track','PageView');
       </div>
 
       <article class="coach__card">
-        <img class="coach__photo" src="assets/img/apresentacaocoach1.webp"
-             alt="Coach Luca junto a una alumna" width="800" height="1067" loading="lazy">
+        <img class="coach__photo" src="assets/img/apresentacaocoach2.webp"
+             alt="Coach Luca, especialista en glúteos femeninos" width="800" height="999" loading="lazy">
         <div class="coach__body">
 
           <div class="coach__title">
@@ -129,6 +124,14 @@ fbq('init','PIXEL_ID'); fbq('track','PageView');
           </div>
         </div>
       </article>
+
+      <!-- Primer CTA — antes de que tenga que scrollear las pruebas -->
+      <div style="margin-top:20px">
+        <button class="btn btn--pulse" type="button" onclick="startQuiz()">
+          Responder el test →
+        </button>
+        <span class="btn-note">Gratis · menos de 2 minutos</span>
+      </div>
     </section>
 
     <!-- ======= PRUEBAS EN LOOP INFINITO ======= -->
@@ -168,8 +171,9 @@ fbq('init','PIXEL_ID'); fbq('track','PageView');
 
       <div class="pad" style="margin-top:24px">
         <button class="btn btn--pulse" type="button" onclick="startQuiz()">
-          Quiero empezar ahora →
+          Responder el test →
         </button>
+        <span class="btn-note">Gratis · menos de 2 minutos</span>
       </div>
     </section>
   </div>

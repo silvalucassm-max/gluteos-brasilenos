@@ -412,49 +412,88 @@ p{margin:0;}
    PÁGINA DE LA VSL
    ========================================================= */
 .vsl{background:var(--ink);min-height:100vh;color:var(--white);}
-.vsl__inner{max-width:var(--shell);margin:0 auto;padding:26px var(--pad) 44px;}
-.vsl__badge{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(22,163,74,.16);border:1px solid rgba(34,197,94,.4);
-  color:#4ADE80;font-size:12px;font-weight:800;letter-spacing:.07em;
-  text-transform:uppercase;padding:8px 15px;border-radius:99px;
+.vsl__inner{max-width:var(--shell);margin:0 auto;padding:22px var(--pad) 46px;}
+
+/* ---------- CABECERA ---------- */
+.vhero{position:relative;text-align:center;padding:6px 0 24px;}
+.vhero::before{
+  content:'';position:absolute;left:50%;top:-56px;transform:translateX(-50%);
+  width:min(360px,105vw);height:290px;pointer-events:none;
+  background:radial-gradient(circle,rgba(236,15,140,.34) 0%,rgba(139,47,214,.15) 44%,transparent 70%);
+  filter:blur(8px);
 }
-.vsl h1{font-size:clamp(30px,8.6vw,40px);margin-top:16px;}
-.vsl h1 span{color:var(--magenta-soft);}
-.vsl__sub{font-size:16px;color:rgba(255,255,255,.78);margin-top:12px;}
+.vhero > *{position:relative;}
+
+/* Badge — punto latiendo + barrido de brillo */
+.vhero__badge{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:8px 16px 8px 13px;border-radius:99px;
+  background:linear-gradient(120deg,rgba(236,15,140,.18),rgba(139,47,214,.18));
+  border:1px solid rgba(255,61,166,.45);
+  box-shadow:0 0 0 4px rgba(236,15,140,.06),0 6px 22px rgba(236,15,140,.2);
+  font-size:10.5px;font-weight:900;letter-spacing:.15em;text-transform:uppercase;
+  color:#FFA9D6;position:relative;overflow:hidden;
+}
+.vhero__badge span{position:relative;}
+.vhero__badge::after{
+  content:'';position:absolute;top:0;bottom:0;left:-70px;width:44px;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.3),transparent);
+  animation:shine 3.6s ease-in-out infinite;
+}
+@keyframes shine{0%{left:-70px;}55%{left:120%;}100%{left:120%;}}
+
+.vhero__dot{
+  width:8px;height:8px;border-radius:50%;background:var(--magenta-soft);flex:0 0 auto;
+  animation:ping 1.9s ease-out infinite;
+}
+@keyframes ping{
+  0%{box-shadow:0 0 0 0 rgba(255,61,166,.6);}
+  70%{box-shadow:0 0 0 9px rgba(255,61,166,0);}
+  100%{box-shadow:0 0 0 0 rgba(255,61,166,0);}
+}
+
+.vhero__title{
+  font-family:'Anton',Impact,sans-serif;font-weight:400;text-transform:uppercase;
+  font-size:clamp(38px,11.8vw,54px);line-height:.92;letter-spacing:.005em;margin-top:17px;
+}
+.vhero__title span{
+  display:block;
+  background:linear-gradient(96deg,#FF3DA6 0%,#E96BE0 46%,#B98CFF 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  filter:drop-shadow(0 3px 15px rgba(236,15,140,.45));
+}
+.vhero__rule{
+  width:54px;height:3px;border-radius:99px;margin:16px auto 0;
+  background:linear-gradient(90deg,var(--magenta),var(--purple));
+}
+.vhero__sub{
+  font-size:15.5px;line-height:1.5;color:rgba(255,255,255,.7);
+  margin:14px auto 0;max-width:300px;
+}
+.vhero__sub b{color:var(--white);font-weight:800;}
+
+/* ---------- PLAYER ---------- */
 .vsl__frame{
-  margin-top:22px;border-radius:var(--r-md);overflow:hidden;
-  background:#000;border:1px solid rgba(255,255,255,.12);
-  box-shadow:0 20px 50px rgba(0,0,0,.5);
+  border-radius:var(--r-md);overflow:hidden;background:#000;
+  box-shadow:0 22px 55px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.09);
 }
-.vsl__ratio{position:relative;width:100%;padding-top:177.78%;} /* 9:16 vertical */
-.vsl__ratio > *{position:absolute;inset:0;width:100%;height:100%;border:0;}
-.vsl__placeholder{
-  display:grid;place-content:center;justify-items:center;gap:12px;text-align:center;
-  padding:26px;color:rgba(255,255,255,.55);
-  background:repeating-linear-gradient(45deg,#141414,#141414 12px,#1B1B1B 12px,#1B1B1B 24px);
-}
-.vsl__placeholder code{
-  font-size:12px;background:rgba(255,255,255,.08);padding:5px 9px;border-radius:6px;
-  color:var(--magenta-soft);
-}
+.vsl__frame > vturb-smartplayer,
+.vsl__frame > div[id^="vid"]{display:block;width:100%;}
+.vsl__frame iframe{display:block;width:100%;border:0;}
 .vsl__audio{
-  margin-top:14px;font-size:13.5px;color:rgba(255,255,255,.6);text-align:center;
+  margin-top:13px;font-size:13px;color:rgba(255,255,255,.55);text-align:center;
 }
+
+/* ---------- BLOQUEO / CTA ---------- */
 .vsl__lock{
-  margin-top:28px;padding:20px 18px;text-align:center;
-  border:1px dashed rgba(255,255,255,.22);border-radius:var(--r-md);
+  margin-top:24px;padding:18px 16px;text-align:center;
+  border:1px dashed rgba(255,255,255,.2);border-radius:var(--r-md);
   background:rgba(255,255,255,.03);
 }
-.vsl__lock b{font-size:15px;color:rgba(255,255,255,.9);}
-.vsl__lock p{font-size:13.5px;color:rgba(255,255,255,.55);margin-top:6px;}
-.vsl__cta{margin-top:26px;animation:fadeUp .5s ease both;}
-.vsl__points{
-  margin-top:30px;display:flex;flex-direction:column;gap:12px;
-  border-top:1px solid rgba(255,255,255,.1);padding-top:24px;
-}
-.vsl__point{display:flex;gap:11px;font-size:14.5px;color:rgba(255,255,255,.8);}
-.vsl__point b{color:var(--white);}
+.vsl__lock b{font-size:14.5px;color:rgba(255,255,255,.88);display:block;}
+.vsl__lock p{font-size:13px;color:rgba(255,255,255,.5);margin-top:6px;}
+.vsl__cta{margin-top:24px;animation:fadeUp .5s ease both;}
 
 /* =========================================================
    PÁGINA DE OFERTA

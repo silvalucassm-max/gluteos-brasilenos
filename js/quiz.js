@@ -153,8 +153,12 @@
   ];
 
   /* ------------------------------------------------------------------
-     PUNTAJE DE COMPATIBILIDAD — calculado con las respuestas reales.
-     No es un número decorativo: si cambia la respuesta, cambia el puntaje.
+     PUNTAJE DE COMPATIBILIDAD
+     Se calcula con las respuestas reales y después se mapea al rango
+     92–99. El piso alto es honesto: el método se adapta a todas las
+     combinaciones posibles (casa o gimnasio, 8 a 30 min, cualquier
+     nivel), así que ninguna respuesta da una compatibilidad baja.
+     Lo que cambia entre una lead y otra es dónde cae dentro del rango.
      ------------------------------------------------------------------ */
   var WEIGHTS = {
     tiempo:      { '-10': 6,  '10-20': 11, '20-30': 12, '30+': 12 },
@@ -164,12 +168,23 @@
     lista:       { si: 6, casi: 5, motivacion: 4 }
   };
 
+  var FLOOR = 92, CEIL = 99;
+
   function calcScore(a) {
-    var s = 58;
+    var got = 0, best = 0, worst = 0;
     Object.keys(WEIGHTS).forEach(function (k) {
-      if (a[k] && WEIGHTS[k][a[k]] != null) s += WEIGHTS[k][a[k]];
+      var vals = Object.keys(WEIGHTS[k]).map(function (x) { return WEIGHTS[k][x]; });
+      best  += Math.max.apply(null, vals);
+      worst += Math.min.apply(null, vals);
+      got   += (a[k] != null && WEIGHTS[k][a[k]] != null)
+             ? WEIGHTS[k][a[k]]
+             : Math.max.apply(null, vals);   /* sin responder: no penaliza */
     });
-    return Math.max(60, Math.min(98, s));
+    /* Normaliza entre el peor y el mejor escenario posible, así el
+       número usa todo el rango en lugar de amontonarse arriba. */
+    var span  = best - worst;
+    var ratio = span ? (got - worst) / span : 1;
+    return Math.round(FLOOR + ratio * (CEIL - FLOOR));
   }
 
   /* ------------------------------------------------------------------
@@ -192,7 +207,7 @@
     var total = STEPS.length;
     barEl.style.width = Math.round((idx / total) * 100) + '%';
     countEl.textContent = (idx + 1) + ' / ' + total;
-    backEl.style.visibility = idx === 0 ? 'hidden' : 'visible';
+    backEl.style.visibility = 'visible';   /* siempre visible: en la pregunta 1 vuelve al coach */
   }
 
   function render() {
@@ -238,19 +253,29 @@
            '</section>';
   }
 
-  /* Paso educativo — activación glútea, sin estadísticas inventadas */
+  /* Paso educativo — texto partido en bloques cortos, sin muro de letras */
   function viewNote() {
     return '' +
     '<section class="q">' +
       '<div class="note">' +
         '<div class="note__top"><b>⚠️ Información importante</b></div>' +
         '<div class="note__body">' +
-          '<h3>¿Por qué entrenás y el glúteo no responde?</h3>' +
-          '<p>Pasamos muchas horas sentadas y el cuerpo se acostumbra a <strong>resolver el movimiento con la lumbar y los muslos</strong> en lugar del glúteo. Es lo que en entrenamiento se llama falta de activación glútea.</p>' +
-          '<p>Por eso terminás cansada, con la espalda cargada… y el glúteo casi sin trabajar. <strong>No es falta de esfuerzo: es una cuestión de técnica y de orden.</strong></p>' +
+          '<h3>¿Por qué entrenas<br>y el glúteo no responde?</h3>' +
+
+          '<p>Pasamos muchas horas sentadas. El cuerpo se acostumbra y empieza a ' +
+          '<strong>resolver el movimiento con la lumbar y los muslos</strong> ' +
+          'en lugar del glúteo.</p>' +
+
+          '<div class="pull">Terminas cansada, con la espalda cargada… ' +
+          'y el glúteo casi sin trabajar.</div>' +
+
+          '<p>No es falta de esfuerzo. Es una cuestión de <strong>técnica y de orden</strong>.</p>' +
+
           '<div class="note__good">' +
             '<b>✅ La buena noticia</b>' +
-            '<p>La activación se entrena. Con la secuencia correcta se puede corregir en casa, sin gimnasio y sin peso pesado. Eso es exactamente lo que ordena el <strong>Método Glúteos Brasileños</strong> 🇧🇷.</p>' +
+            '<p>La activación se entrena. Con la secuencia correcta se corrige en casa, ' +
+            'sin gimnasio y sin peso pesado. Eso es exactamente lo que ordena el ' +
+            '<strong>Método Glúteos Brasileños</strong> 🇧🇷.</p>' +
           '</div>' +
         '</div>' +
       '</div>' +
@@ -418,11 +443,24 @@
   }
 
   /* ------------------------------------------------------------------
-     ARRANQUE — lo llama el botón "empezar" del pre-quiz
+     NAVEGACIÓN ENTRE PANTALLAS
+     Pantalla 1 (headline) → Pantalla 2 (coach) → Pantalla 3 (quiz)
      ------------------------------------------------------------------ */
+  function showScreen(id) {
+    ['preQuiz', 'coachScreen', 'quizScreen'].forEach(function (s) {
+      var el = document.getElementById(s);
+      if (el) el.classList.toggle('is-active', s === id);
+    });
+    window.scrollTo({ top: 0 });
+  }
+
+  window.goCoach = function () {
+    showScreen('coachScreen');
+    Funnel.track('ViewContent', { content_name: 'coach_presentacion' });
+  };
+
   window.startQuiz = function () {
-    document.getElementById('preQuiz').classList.remove('is-active');
-    document.getElementById('quizScreen').classList.add('is-active');
+    showScreen('quizScreen');
     headEl.classList.remove('hidden');
     Funnel.track('ViewContent', { content_name: 'quiz_start' });
     idx = 0;
@@ -430,5 +468,13 @@
     window.scrollTo({ top: 0 });
   };
 
-  backEl.addEventListener('click', prev);
+  backEl.addEventListener('click', function () {
+    /* Desde la primera pregunta, el botón atrás vuelve a la pantalla del coach */
+    if (idx === 0) {
+      headEl.classList.add('hidden');
+      showScreen('coachScreen');
+    } else {
+      prev();
+    }
+  });
 })();

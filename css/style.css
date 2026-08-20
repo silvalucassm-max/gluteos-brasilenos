@@ -737,48 +737,62 @@ body.quiz-page{background:var(--ink);}
 .quiz-page .shell{background:var(--ink);color:var(--white);}
 
 /* ---------- PANTALLA 1 · PRE-QUIZ ---------- */
-.prehero{position:relative;display:flex;flex-direction:column;}
-.prehero__media{position:relative;overflow:hidden;}
-/* Recortada, no encogida: la foto completa mide 1,78:1 y empujaba
-   el botón fuera de la primera pantalla. object-position mantiene
-   el encuadre en los cuerpos y la flecha, no en el techo. */
-.prehero__media img{
-  width:100%;display:block;
-  height:44vh;height:44svh;
-  min-height:250px;max-height:390px;
-  object-fit:cover;object-position:50% 66%;
-}
-.prehero__media::after{
-  content:'';position:absolute;left:0;right:0;bottom:-1px;height:52%;
-  background:linear-gradient(to bottom,transparent 0%,rgba(26,6,32,.8) 55%,var(--ink) 100%);
-  pointer-events:none;
-}
-.prehero__body{
-  position:relative;margin-top:-30px;padding:0 var(--pad) 34px;
-  text-align:center;flex:1 1 auto;display:flex;flex-direction:column;
-}
+.prehero{position:relative;display:flex;flex-direction:column;text-align:center;}
+
+/* ---- Titular arriba de todo ---- */
+.prehero__head{padding:20px var(--pad) 0;}
 .prehero h1{
   font-family:'Anton',Impact,sans-serif;font-weight:400;text-transform:uppercase;
-  font-size:clamp(30px,8.8vw,40px);line-height:.96;letter-spacing:.005em;
+  font-size:clamp(25px,7.3vw,33px);line-height:1;letter-spacing:.004em;
 }
 .prehero h1 em{
-  font-style:normal;display:block;margin-top:6px;
+  font-style:normal;display:block;margin-top:5px;
   background:linear-gradient(96deg,#FF3DA6 0%,#E96BE0 50%,#B98CFF 100%);
   -webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;color:transparent;
   filter:drop-shadow(0 3px 16px rgba(236,15,140,.42));
 }
+
+/* ---- Foto ----
+   La imagen original es 941x1672 (1,78:1): a ancho completo mide 693px
+   y se comía la pantalla entera. El recorte deja fuera solo el techo y
+   el piso — object-position 54% mantiene las dos caras, la flecha y el
+   cartel dentro del encuadre. No tocar sin recalcular. */
+.prehero__media{
+  position:relative;margin:18px var(--pad) 0;
+  border-radius:var(--r-lg);overflow:hidden;
+  box-shadow:0 18px 44px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.08);
+}
+.prehero__media img{
+  width:100%;display:block;
+  height:54vh;height:54svh;
+  min-height:320px;max-height:410px;
+  object-fit:cover;object-position:50% 54%;
+}
+/* Halo de marca detrás de la foto */
+.prehero__media::before{
+  content:'';position:absolute;inset:-18px;z-index:-1;border-radius:inherit;
+  background:radial-gradient(60% 50% at 50% 50%,rgba(236,15,140,.3),transparent 70%);
+  filter:blur(14px);pointer-events:none;
+}
+
+/* ---- Texto de apoyo + botón ---- */
+.prehero__body{padding:22px var(--pad) 36px;}
 .prehero__sub{
-  font-size:16.5px;font-weight:600;color:rgba(255,255,255,.84);
-  margin:16px auto 0;max-width:330px;
+  font-size:16.5px;font-weight:800;color:var(--white);
+  margin:0 auto;max-width:330px;
+}
+.prehero__sub2{
+  font-size:15.5px;font-weight:600;color:rgba(255,255,255,.84);
+  margin:10px auto 0;max-width:340px;
 }
 .prehero__kicker{
-  margin-top:22px;font-size:14.5px;font-weight:800;color:var(--br-yellow);
-  line-height:1.4;
+  margin-top:18px;font-size:15px;font-weight:900;color:var(--br-yellow);
+  text-transform:uppercase;letter-spacing:.03em;
 }
-.prehero__arrows{font-size:20px;letter-spacing:5px;margin:8px 0 14px;}
+.prehero__arrows{font-size:21px;letter-spacing:5px;margin:6px 0 16px;}
 .prehero__warn{
-  margin-top:16px;display:inline-flex;align-items:center;gap:7px;align-self:center;
+  margin-top:18px;display:inline-flex;align-items:center;gap:7px;
   background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);
   padding:10px 16px;border-radius:99px;font-size:13.5px;font-weight:600;
   color:rgba(255,255,255,.84);

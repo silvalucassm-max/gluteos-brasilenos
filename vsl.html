@@ -12,6 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://scripts.converteai.net" crossorigin>
 <link rel="preconnect" href="https://cdn.converteai.net" crossorigin>
+<link rel="dns-prefetch" href="https://cdn.converteai.net">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Figtree:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
@@ -36,6 +37,10 @@
   </header>
 
   <!-- ================= VSL · VTurb SmartPlayer =================
+       El botón del pitch (11:12) está configurado dentro del panel
+       de VTurb y apunta a oferta.html. No hay ningún botón en HTML
+       en esta página a propósito: dos CTA compiten entre sí.
+
        Para cambiar de video: reemplaza el id del elemento y la URL
        del script por los que te da el panel. Nada más.
        ============================================================ -->
@@ -55,23 +60,6 @@
     document.head.appendChild(s);
   </script>
 
-  <p class="vsl__audio">🔊 Activa el sonido para escuchar al coach</p>
-
-  <!-- ================= BLOQUEO / CTA ================= -->
-  <div class="vsl__lock" id="lockBox">
-    <b>🔒 Tu acceso se desbloquea durante el video</b>
-    <p>Sigue mirando — el coach te muestra el protocolo completo.</p>
-  </div>
-
-  <div class="vsl__cta hidden" id="ctaBox">
-    <a class="btn btn--pulse" href="oferta.html" data-keep-utm id="ctaLink">
-      Desbloquear mi protocolo →
-    </a>
-    <span class="btn-note" style="color:rgba(255,255,255,.55)">
-      Acceso inmediato · Garantía de 45 días
-    </span>
-  </div>
-
 </main>
 
 <script src="js/funnel.js"></script>
@@ -79,128 +67,14 @@
 (function () {
   'use strict';
 
-  /* ================================================================
-     CUÁNDO APARECE EL BOTÓN
-     El pitch de la VSL arranca en 11:12 → 672 segundos.
-     ================================================================ */
-  var REVEAL_SECONDS = 672;
+  /* funnel.js ya corre solo al cargar:
+     · guarda los UTM que vengan en la URL
+     · los deja en sessionStorage para que oferta.html los use
 
-  var lock = document.getElementById('lockBox');
-  var cta  = document.getElementById('ctaBox');
-  var done = false;
-
+     Acá solo marcamos que la lead llegó a ver la VSL. Sirve para
+     armar el público de retargeting de "vio el video y no compró".
+     El InitiateCheckout va en oferta.html, no acá. */
   Funnel.track('ViewContent', { content_name: 'vsl' });
-
-  function reveal() {
-    if (done) return;
-    done = true;
-    lock.classList.add('hidden');
-    cta.classList.remove('hidden');
-    sessionStorage.setItem('gb_vsl_seen', '1');
-    Funnel.track('InitiateCheckout', { content_name: 'vsl_cta_revealed' });
-  }
-
-  document.getElementById('ctaLink').addEventListener('click', function () {
-    Funnel.track('Lead', { content_name: 'vsl_to_offer' });
-  });
-
-  /* Si ya llegó al pitch antes y volvió, no la hacemos esperar de nuevo. */
-  if (sessionStorage.getItem('gb_vsl_seen') === '1') {
-    reveal();
-  } else {
-    armar();
-  }
-
-  function armar() {
-    /* --------------------------------------------------------------
-       PLAN A — tiempo real de VIDEO (VTurb)
-       Es lo correcto: si pausa o se le corta la conexión, el botón
-       no aparece antes de tiempo. Si el player no expone su API,
-       cae solo al Plan B. No rompe nada si VTurb cambia de versión.
-       -------------------------------------------------------------- */
-    var hooked = false;
-
-    function tryHook() {
-      if (hooked || done) return true;
-      var sp = window.smartplayer;
-      if (!sp) return false;
-
-      var inst = null;
-      if (sp.instances) {
-        var k = Object.keys(sp.instances);
-        if (k.length) inst = sp.instances[k[0]];
-      } else if (typeof sp.on === 'function') {
-        inst = sp;
-      }
-      if (!inst || typeof inst.on !== 'function') return false;
-
-      try {
-        inst.on('timeupdate', function () {
-          var t = inst.currentTime ||
-                  (inst.smartAutoPlay && inst.smartAutoPlay.currentTime) || 0;
-          if (t >= REVEAL_SECONDS) reveal();
-        });
-        hooked = true;
-        return true;
-      } catch (e) { return false; }
-    }
-
-    var tries = 0;
-    var probe = setInterval(function () {
-      if (tryHook() || ++tries > 30) clearInterval(probe);
-    }, 500);
-
-    /* --------------------------------------------------------------
-       PLAN B — reloj de página, como respaldo
-       Arranca al cargar y sigue corriendo aunque recargue la página.
-       Se le dan 25s de margen sobre los 672 para no adelantarse al
-       video por el buffering inicial.
-       -------------------------------------------------------------- */
-    var GRACE = 25;
-    var KEY   = 'gb_vsl_start';
-    var start = Number(sessionStorage.getItem(KEY));
-    if (!start || isNaN(start)) {
-      start = Date.now();
-      sessionStorage.setItem(KEY, String(start));
-    }
-    var left = Math.max(0, (REVEAL_SECONDS + GRACE) - (Date.now() - start) / 1000);
-    setTimeout(reveal, left * 1000);
-    /* --------------------------------------------------------------
-       DIAGNÓSTICO — abrí la página con ?debug=1 al final de la URL
-       para ver, en vivo, si el Plan A enganchó y en qué segundo va
-       el video. Sirve para confirmar el momento del pitch sin tener
-       que mirar 11 minutos. En producción no se muestra nada.
-       -------------------------------------------------------------- */
-    if (location.search.indexOf('debug=1') > -1) {
-      var dbg = document.createElement('div');
-      dbg.style.cssText = 'position:fixed;left:8px;bottom:8px;z-index:9999;' +
-        'background:rgba(0,0,0,.88);color:#4ADE80;font:12px/1.6 ui-monospace,monospace;' +
-        'padding:10px 12px;border-radius:8px;border:1px solid #333;max-width:260px';
-      document.body.appendChild(dbg);
-
-      setInterval(function () {
-        var sp = window.smartplayer;
-        var inst = null;
-        if (sp && sp.instances) {
-          var k = Object.keys(sp.instances);
-          if (k.length) inst = sp.instances[k[0]];
-        }
-        var t = inst ? (inst.currentTime || 0) : null;
-        var pageT = Math.round((Date.now() - start) / 1000);
-        dbg.innerHTML =
-          'smartplayer: ' + (sp ? '<b>sí</b>' : '<span style="color:#F87171">no</span>') + '<br>' +
-          'Plan A enganchado: ' + (hooked ? '<b>sí</b>' : '<span style="color:#FBBF24">no</span>') + '<br>' +
-          'tiempo de VIDEO: ' + (t === null ? '—' : Math.round(t) + 's') + '<br>' +
-          'tiempo de PÁGINA: ' + pageT + 's<br>' +
-          'meta: ' + REVEAL_SECONDS + 's<br>' +
-          'botón: ' + (done ? '<b>visible</b>' : 'oculto');
-      }, 500);
-
-      /* atajo: ?debug=1&fast=1 libera el botón a los 8 segundos */
-      if (location.search.indexOf('fast=1') > -1) setTimeout(reveal, 8000);
-    }
-
-  }
 })();
 </script>
 </body>

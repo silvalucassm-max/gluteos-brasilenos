@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Tu acceso · Método Glúteos Brasileños 🇧🇷</title>
+<meta name="description" content="Tu plan de 28 días está listo. Mirá el video y desbloqueá el protocolo.">
+<meta name="theme-color" content="#1A0620">
+<meta name="robots" content="noindex">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Figtree:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="vsl">
+<main class="vsl__inner">
+
+  <p class="vsl__badge">🎯 Acceso exclusivo confirmado</p>
+
+  <h1 class="display">¡Fuiste <span>seleccionada!</span></h1>
+  <p class="vsl__sub">
+    Tu video ya empezó. Miralo hasta el final para desbloquear el
+    <strong>Método <span class="br-word on-dark">Glúteos Brasileños</span></strong>.
+  </p>
+
+  <!-- ================================================================
+       AQUÍ VA LA VSL
+       ----------------------------------------------------------------
+       Reemplazá TODO el contenido de <div class="vsl__ratio"> por el
+       embed de tu plataforma. Ejemplos:
+
+       VTurb / Converteai:
+         <div id="vid_XXXX" style="position:relative;width:100%;padding-top:177.78%">
+           <script src="https://scripts.converteai.net/…/player.js" async></script>
+         </div>
+
+       Panda Video:
+         <iframe src="https://player-vz-XXXX.tv.pandavideo.com.br/embed/?v=XXXX"
+                 allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+
+       YouTube (no recomendado para VSL — muestra videos sugeridos):
+         <iframe src="https://www.youtube.com/embed/ID?autoplay=1&rel=0&modestbranding=1"
+                 allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+       El contenedor ya está en 9:16 en celular y 16:9 en escritorio.
+       Si tu VSL es horizontal, borrá el bloque `.vsl__ratio{padding-top:177.78%}`
+       del CSS y dejá solo 56.25%.
+       ================================================================ -->
+  <div class="vsl__frame">
+    <div class="vsl__ratio">
+      <div class="vsl__placeholder">
+        <span style="font-size:34px" aria-hidden="true">▶</span>
+        <b>Espacio reservado para la VSL</b>
+        <span style="font-size:13px">Pegá tu código embed dentro de</span>
+        <code>&lt;div class="vsl__ratio"&gt;</code>
+      </div>
+    </div>
+  </div>
+
+  <p class="vsl__audio">🔊 Asegurate de tener el sonido encendido</p>
+
+  <!-- ================================================================
+       BOTÓN QUE SE DESBLOQUEA
+       Cambiá REVEAL_SECONDS por el minuto donde tu VSL hace la oferta.
+       ================================================================ -->
+  <div class="vsl__lock" id="lockBox">
+    <b>🔒 El botón aparece durante el video</b>
+    <p>Seguí mirando — falta poco para que se desbloquee tu acceso.</p>
+  </div>
+
+  <div class="vsl__cta hidden" id="ctaBox">
+    <a class="btn btn--pulse" href="oferta.html" data-keep-utm id="ctaLink">
+      Desbloquear mi protocolo →
+    </a>
+    <span class="btn-note" style="color:rgba(255,255,255,.6)">
+      Acceso inmediato · Garantía de 45 días
+    </span>
+  </div>
+
+  <!-- Refuerzo mientras mira -->
+  <section class="vsl__points">
+    <p class="vsl__point"><span aria-hidden="true">🍑</span><span><b>28 días</b> de entrenamiento guiado en video.</span></p>
+    <p class="vsl__point"><span aria-hidden="true">⏱️</span><span><b>8 minutos por día</b> — pensado para agendas reales.</span></p>
+    <p class="vsl__point"><span aria-hidden="true">🏠</span><span><b>En casa</b>, con tu peso corporal. Sin equipo.</span></p>
+    <p class="vsl__point"><span aria-hidden="true">💬</span><span><b>Soporte por WhatsApp</b> durante todo el desafío.</span></p>
+  </section>
+
+</main>
+
+<script src="js/funnel.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  /* Segundos hasta que aparece el botón. Ponelo en el minuto exacto
+     en el que tu VSL presenta la oferta. 0 = mostrar de entrada. */
+  var REVEAL_SECONDS = 180;
+
+  var lock = document.getElementById('lockBox');
+  var cta  = document.getElementById('ctaBox');
+
+  Funnel.track('ViewContent', { content_name: 'vsl' });
+
+  /* Si ya vio el video antes y volvió, no la hacemos esperar de nuevo. */
+  var seen = sessionStorage.getItem('gb_vsl_seen') === '1';
+
+  /* Mientras no haya embed pegado, el botón aparece de entrada para
+     que puedas probar el embudo completo. Al pegar tu VSL, el
+     placeholder desaparece y vuelve a respetar REVEAL_SECONDS. */
+  var noEmbedYet = !!document.querySelector('.vsl__placeholder');
+
+  function reveal() {
+    lock.classList.add('hidden');
+    cta.classList.remove('hidden');
+    sessionStorage.setItem('gb_vsl_seen', '1');
+    Funnel.track('InitiateCheckout', { content_name: 'vsl_cta_revealed' });
+  }
+
+  if (seen || noEmbedYet || REVEAL_SECONDS === 0) reveal();
+  else setTimeout(reveal, REVEAL_SECONDS * 1000);
+
+  document.getElementById('ctaLink').addEventListener('click', function () {
+    Funnel.track('Lead', { content_name: 'vsl_to_offer' });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Diagnóstico do funil</title>
+<style>
+  body{font-family:system-ui,-apple-system,sans-serif;max-width:640px;margin:0 auto;
+       padding:28px 18px 60px;background:#faf7fb;color:#1A0620;line-height:1.5}
+  h1{font-size:22px;margin:0 0 6px}
+  .lead{color:#666;font-size:14px;margin:0 0 22px}
+  .row{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border-radius:8px;
+       background:#fff;border:1px solid #eee;margin-bottom:6px;font-size:14px;
+       font-family:ui-monospace,SFMono-Regular,Menlo,monospace;word-break:break-all}
+  .ok{color:#15803d}.bad{color:#b91c1c;font-weight:700}
+  .ico{flex:0 0 auto}
+  h2{font-size:15px;margin:24px 0 8px;text-transform:uppercase;letter-spacing:.06em;color:#8B2FD6}
+  #verdict{padding:16px 18px;border-radius:10px;margin-top:26px;font-size:15px}
+  .good{background:#f0fdf4;border:1px solid #bbf7d0;color:#14532d}
+  .fail{background:#fef2f2;border:1px solid #fecaca;color:#7f1d1d}
+  code{background:#f3f0f5;padding:2px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+
+<h1>Diagnóstico do funil</h1>
+<p class="lead">Abra esta página no mesmo endereço do site publicado. Ela testa se cada arquivo está no lugar certo.</p>
+
+<div id="out"></div>
+<div id="verdict"></div>
+
+<script>
+var FILES = {
+  'Estrutura': ['css/style.css','js/funnel.js','js/quiz.js','js/social-proof.js',
+                'index.html','vsl.html','oferta.html'],
+  'Imagens':   ['assets/img/logo_acimadoquiz_.webp','assets/img/1prequiz.webp',
+                'assets/img/apresentacaocoach1.webp','assets/img/apresentacaocoach2.webp',
+                'assets/img/fotoprincipal_da_landingpage.webp',
+                'assets/img/imagemlandingpage-mulherusandoapp.webp',
+                'assets/img/giflp1.webp','assets/img/giflp2.webp',
+                'assets/img/idade18-29.webp','assets/img/idade30-39.webp',
+                'assets/img/idade40-49.webp','assets/img/idade50_.webp',
+                'assets/img/prova1.webp','assets/img/prova2.webp','assets/img/prova3.webp',
+                'assets/img/prova4.webp','assets/img/prova5.webp','assets/img/prova6.webp']
+};
+
+var out = document.getElementById('out');
+var falhas = [], total = 0, prontos = 0;
+
+Object.keys(FILES).forEach(function(grupo){
+  var h = document.createElement('h2'); h.textContent = grupo; out.appendChild(h);
+  FILES[grupo].forEach(function(path){
+    total++;
+    var row = document.createElement('div');
+    row.className = 'row';
+    row.innerHTML = '<span class="ico">⏳</span><span>' + path + '</span>';
+    out.appendChild(row);
+
+    fetch(path, {method:'HEAD', cache:'no-store'}).then(function(r){
+      if (r.ok) { row.querySelector('.ico').textContent='✅'; row.classList.add('ok'); }
+      else throw 0;
+    }).catch(function(){
+      row.querySelector('.ico').textContent='❌';
+      row.querySelector('.ico').className='ico bad';
+      falhas.push(path);
+    }).finally(function(){
+      prontos++;
+      if (prontos === total) veredito();
+    });
+  });
+});
+
+function veredito(){
+  var v = document.getElementById('verdict');
+  if (!falhas.length){
+    v.className='good';
+    v.innerHTML='<b>Tudo no lugar.</b><br>Se o quiz ainda não rodar, abra o console do navegador (F12 → Console) e me mande o erro que aparecer.';
+  } else {
+    v.className='fail';
+    v.innerHTML='<b>'+falhas.length+' arquivo(s) faltando ou com nome errado.</b><br><br>'+
+      falhas.map(function(f){return '<code>'+f+'</code>';}).join('<br>')+
+      '<br><br>Confira se as pastas <code>css/</code>, <code>js/</code> e <code>assets/img/</code> existem no repositório com esses nomes exatos. O GitHub Pages diferencia maiúscula de minúscula.';
+  }
+}
+</script>
+</body>
+</html>

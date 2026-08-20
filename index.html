@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Test rápido · Método Glúteos Brasileños 🇧🇷</title>
+<meta name="description" content="Respondé el test de 2 minutos y recibí tu plan de glúteos de 28 días — 8 minutos por día, en casa y sin equipo.">
+<meta name="theme-color" content="#4C1470">
+<meta name="robots" content="noindex">
+
+<meta property="og:title" content="Test rápido · Método Glúteos Brasileños">
+<meta property="og:description" content="28 días · 8 minutos por día · en casa y sin equipo.">
+<meta property="og:image" content="assets/img/logo_acimadoquiz_.webp">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Figtree:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+<!-- ==========================================================
+     PIXEL DE META — pegá tu ID en PIXEL_ID y descomentá el bloque
+     ==========================================================
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','PIXEL_ID'); fbq('track','PageView');
+</script>
+-->
+</head>
+
+<body>
+<main class="shell">
+
+  <!-- ======= ENCABEZADO DEL QUIZ (logo + barra de progreso) ======= -->
+  <header class="quiz-head hidden" id="quizHead">
+    <div class="quiz-head__row">
+      <button class="quiz-back" id="quizBack" type="button" aria-label="Volver a la pregunta anterior">←</button>
+      <img class="quiz-head__logo" src="assets/img/logo_acimadoquiz_.webp" alt="Desafío Glúteos Brasileños">
+      <span class="quiz-count" id="quizCount">1 / 10</span>
+    </div>
+    <div class="bar" role="progressbar" aria-label="Progreso del test">
+      <div class="bar__fill" id="quizBar"></div>
+    </div>
+  </header>
+
+  <!-- ================================================================
+       PANTALLA 1 · PRE-QUIZ
+       ================================================================ -->
+  <div class="screen is-active" id="preQuiz">
+
+    <section class="hero">
+      <img class="hero__logo" src="assets/img/logo_acimadoquiz_.webp"
+           alt="Desafío Glúteos Brasileños" width="900" height="672" fetchpriority="high">
+
+      <h1 class="display">
+        Transformá tu cuerpo en 28 días
+        <em>con 8 minutos por día</em>
+      </h1>
+
+      <p class="hero__sub">Sin gimnasio y sin rellenos. Solo tu peso corporal y la secuencia correcta.</p>
+
+      <p class="hero__kicker">Respondé el test rápido y recibí tu entrenamiento personalizado</p>
+      <p class="hero__arrows" aria-hidden="true">👇🏽 👇🏽 👇🏽</p>
+
+      <button class="btn btn--pulse" type="button" onclick="startQuiz()">¡Empezar ahora!</button>
+      <span class="btn-note" style="color:rgba(255,255,255,.7)">Son 10 preguntas · menos de 2 minutos</span>
+
+      <p class="hero__warn">⚡ Un solo test gratuito por persona</p>
+    </section>
+
+    <!-- ======= COACH ======= -->
+    <section class="coach">
+      <div class="coach__head">
+        <p class="eyebrow">Tu coach</p>
+        <h2 class="display">Quién arma tu plan</h2>
+      </div>
+
+      <article class="coach__card">
+        <img class="coach__photo" src="assets/img/apresentacaocoach1.webp"
+             alt="Coach Luca junto a una alumna" width="800" height="1067" loading="lazy">
+        <div class="coach__body">
+          <h3 class="coach__name display">Coach Luca</h3>
+          <p class="coach__role">Especialista en glúteos femeninos</p>
+          <p class="coach__bio">
+            Educador físico con 12 años de trabajo enfocado en entrenamiento femenino.
+            Se especializa en <strong>activación, firmeza y proyección del glúteo sin gimnasio</strong>,
+            con rutinas cortas que se pueden sostener en la rutina real de una mujer.
+          </p>
+
+          <div class="coach__stats">
+            <div class="stat"><b>12</b><span>Años</span></div>
+            <div class="stat"><b>4M+</b><span>Seguidores</span></div>
+            <div class="stat"><b>50k+</b><span>Alumnas</span></div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ======= PRUEBAS ======= -->
+    <section class="proof">
+      <div class="proof__head">
+        <p class="eyebrow">Resultados reales</p>
+        <h2 class="display">Alumnas del método 🍑</h2>
+        <p class="stars" aria-label="5 de 5 estrellas">★★★★★</p>
+        <p class="proof__meta">Más de 50.000 alumnas en Brasil y el mundo</p>
+      </div>
+
+      <div class="rail">
+        <figure class="rail__item"><img src="assets/img/prova1.webp" alt="Antes y después de una alumna" loading="lazy"><figcaption class="rail__tag">Antes · Después</figcaption></figure>
+        <figure class="rail__item"><img src="assets/img/prova2.webp" alt="Antes y después de una alumna" loading="lazy"><figcaption class="rail__tag">Antes · Después</figcaption></figure>
+        <figure class="rail__item"><img src="assets/img/prova3.webp" alt="Antes y después de una alumna" loading="lazy"><figcaption class="rail__tag">Antes · Después</figcaption></figure>
+        <figure class="rail__item"><img src="assets/img/prova4.webp" alt="Antes y después de una alumna" loading="lazy"><figcaption class="rail__tag">Antes · Después</figcaption></figure>
+        <figure class="rail__item"><img src="assets/img/prova5.webp" alt="Antes y después de una alumna" loading="lazy"><figcaption class="rail__tag">Antes · Después</figcaption></figure>
+        <figure class="rail__item"><img src="assets/img/prova6.webp" alt="Antes y después de una alumna" loading="lazy"><figcaption class="rail__tag">Antes · Después</figcaption></figure>
+      </div>
+
+      <!-- Este aviso es obligatorio en Hotmart y baja mucho la tasa de reembolso. -->
+      <p class="disclaimer">
+        Fotos de alumnas reales, publicadas con su autorización. Los resultados varían
+        según el punto de partida, la constancia y la alimentación de cada persona.
+      </p>
+
+      <div style="margin-top:22px">
+        <button class="btn btn--pulse" type="button" onclick="startQuiz()">Quiero empezar ahora →</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================================================================
+       PANTALLA 2 · QUIZ (lo dibuja quiz.js)
+       ================================================================ -->
+  <div class="screen" id="quizScreen">
+    <div id="quizMount"></div>
+  </div>
+
+</main>
+
+<script src="js/funnel.js"></script>
+<script src="js/quiz.js"></script>
+</body>
+</html>

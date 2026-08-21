@@ -14,6 +14,20 @@
 </head>
 
 <body class="offer">
+<!-- Sprite de iconos — SVG en lugar de emoji: los emoji cambian de forma
+     entre Android, iPhone y navegador, y algunos ni se dibujan. -->
+<svg class="sprite" aria-hidden="true" focusable="false"><defs>
+  <symbol id="i-dumbbell" viewBox="0 0 24 24"><path d="M4 9v6M7 6.5v11M17 6.5v11M20 9v6M7 12h10"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3.2l2.1 5.3 5.3 2.1-5.3 2.1L12 18l-2.1-5.3L4.6 10.6l5.3-2.1z"/><path d="M18.5 3.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5.2c0 4.3-2.9 8.1-7 9.8-4.1-1.7-7-5.5-7-9.8V6z"/><path d="M9.2 12.2l2 2 3.6-3.8"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.2V12l3.1 2"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.2s-7.3-4.5-7.3-9.5A4.1 4.1 0 0112 8.1a4.1 4.1 0 017.3 2.6c0 5-7.3 9.5-7.3 9.5z"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><rect x="5" y="4.2" width="14" height="16.6" rx="2.4"/><path d="M9.2 3.2h5.6v3H9.2z"/><path d="M9 11.5h6M9 15.3h4"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3.4c3 3.7 5.6 6.5 5.6 9.4A5.6 5.6 0 016.4 12.8c0-2.9 2.6-5.7 5.6-9.4z"/><path d="M9.4 13.4a2.7 2.7 0 002.6 2.6"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20.2 12.1a7.2 7.2 0 01-7.2 7.2H8.6L4 22.2v-4.9a7.2 7.2 0 014.6-11.6h4.4a7.2 7.2 0 017.2 6.4z"/><path d="M9.3 12h.01M12.5 12h.01M15.7 12h.01" stroke-width="2.4"/></symbol>
+</defs></svg>
+
 <main class="shell">
 
   <!-- ======= CUENTA REGRESIVA ======= -->
@@ -29,8 +43,7 @@
     <div class="offer-hero__inner">
       <h1 class="display">¡Felicitaciones!</h1>
       <p class="offer-hero__sub">
-        Tu plan del <strong class="br-word on-dark">Método Glúteos Brasileños</strong>
-        ya está listo y esperándote.
+        Tu plan del <span class="method">Método <span class="br-word on-dark">Glúteos Brasileños</span><span class="method__flag">🇧🇷</span></span><br>ya está listo y esperándote.
       </p>
       <p class="offer-hero__meta">28 días · 8 minutos al día · sin excusas 🍑🔥</p>
     </div>
@@ -145,32 +158,32 @@
 
   <!-- ======= QUÉ CAMBIA ======= -->
   <section class="sec">
-    <p class="sec__eyebrow">🟢 Método Glúteos Brasileños</p>
+    <p class="sec__eyebrow">🟢 <span class="br-word">Método Glúteos Brasileños</span></p>
     <h2 class="sec__title display">Lo que pasa<br>con tu bumbum 🍑</h2>
 
     <div class="benefits">
       <div class="benefit">
-        <span class="benefit__ico" aria-hidden="true">✓</span>
+        <span class="benefit__ico" aria-hidden="true"><svg class="ico"><use href="#i-dumbbell"/></svg></span>
         <span><b>Glúteos más firmes y definidos</b>
         <span>Trabajo de fuerza progresivo sobre glúteo mayor, medio y menor.</span></span>
       </div>
       <div class="benefit">
-        <span class="benefit__ico" aria-hidden="true">✓</span>
+        <span class="benefit__ico" aria-hidden="true"><svg class="ico"><use href="#i-sparkle"/></svg></span>
         <span><b>Mejor tono en la zona</b>
         <span>Al ganar masa muscular, la piel de la zona se ve más lisa y sostenida.</span></span>
       </div>
       <div class="benefit">
-        <span class="benefit__ico" aria-hidden="true">✓</span>
+        <span class="benefit__ico" aria-hidden="true"><svg class="ico"><use href="#i-shield"/></svg></span>
         <span><b>Menos molestia en la lumbar</b>
         <span>Cuando el glúteo activa bien, la espalda baja deja de compensar.</span></span>
       </div>
       <div class="benefit">
-        <span class="benefit__ico" aria-hidden="true">✓</span>
+        <span class="benefit__ico" aria-hidden="true"><svg class="ico"><use href="#i-clock"/></svg></span>
         <span><b>Entrenamientos que se sostienen</b>
         <span>8 minutos, en casa, sin equipo — el plan que realmente vas a cumplir.</span></span>
       </div>
       <div class="benefit">
-        <span class="benefit__ico" aria-hidden="true">✓</span>
+        <span class="benefit__ico" aria-hidden="true"><svg class="ico"><use href="#i-heart"/></svg></span>
         <span><b>Más seguridad con tu ropa</b>
         <span>El cambio que más reportan las alumnas es cómo se sienten al vestirse.</span></span>
       </div>
@@ -235,26 +248,26 @@
 
     <div style="margin-top:18px">
       <div class="bonus">
-        <span class="bonus__free">Gratis</span>
-        <span><b>El Truco Bumbum Granada</b>
+        <span class="bonus__ico" aria-hidden="true"><svg class="ico"><use href="#i-target"/></svg></span>
+        <span><span class="bonus__head"><span class="bonus__free">Gratis</span></span><b>El Truco Bumbum Granada</b>
         <p>Secuencia de activación profunda para que el glúteo despierte antes de cada sesión.</p>
         <span class="bonus__val">Valor: <s>$16</s> — incluido</span></span>
       </div>
       <div class="bonus">
-        <span class="bonus__free">Gratis</span>
-        <span><b>Lista de alimentos saboteadores</b>
+        <span class="bonus__ico" aria-hidden="true"><svg class="ico"><use href="#i-list"/></svg></span>
+        <span><span class="bonus__head"><span class="bonus__free">Gratis</span></span><b>Lista de alimentos saboteadores</b>
         <p>Qué sacar del plato para que el entrenamiento se note más rápido.</p>
         <span class="bonus__val">Valor: <s>$13</s> — incluido</span></span>
       </div>
       <div class="bonus">
-        <span class="bonus__free">Gratis</span>
-        <span><b>Adiós a los granitos en el glúteo</b>
+        <span class="bonus__ico" aria-hidden="true"><svg class="ico"><use href="#i-drop"/></svg></span>
+        <span><span class="bonus__head"><span class="bonus__free">Gratis</span></span><b>Adiós a los granitos en el glúteo</b>
         <p>Rutina simple de cuidado de la piel de la zona, día a día.</p>
         <span class="bonus__val">Valor: <s>$7</s> — incluido</span></span>
       </div>
       <div class="bonus">
-        <span class="bonus__free">Gratis</span>
-        <span><b>Soporte directo por WhatsApp</b>
+        <span class="bonus__ico" aria-hidden="true"><svg class="ico"><use href="#i-chat"/></svg></span>
+        <span><span class="bonus__head"><span class="bonus__free">Gratis</span></span><b>Soporte directo por WhatsApp</b>
         <p>28 días de acceso al equipo para corregir técnica y ajustar tu plan.</p>
         <span class="bonus__val">Valor: <s>$40</s> — incluido</span></span>
       </div>
@@ -264,7 +277,7 @@
   <!-- ======= OFERTA FINAL · CTA 3 ======= -->
   <section class="sec sec--tint">
     <p class="sec__eyebrow">Todo lo que recibes hoy</p>
-    <h2 class="sec__title display">Método <span class="br-word">Glúteos Brasileños</span></h2>
+    <h2 class="sec__title display">Método<br><span class="br-word">Glúteos Brasileños</span> 🇧🇷</h2>
 
     <div class="getbox">
       <div class="getbox__top">
@@ -274,7 +287,7 @@
       </div>
 
       <div class="getbox__list">
-        <p class="getbox__item"><i aria-hidden="true">🍑</i><span>Método Glúteos Brasileños completo — 28 días</span></p>
+        <p class="getbox__item"><i aria-hidden="true">🍑</i><span><span class="method"><span class="br-word on-dark">Método Glúteos Brasileños</span></span> completo — 28 días</span></p>
         <p class="getbox__item"><i aria-hidden="true">📱</i><span>App con videos HD paso a paso</span></p>
         <p class="getbox__item"><i aria-hidden="true">⏱️</i><span>Rutinas de solo 8 minutos por día</span></p>
         <p class="getbox__item"><i aria-hidden="true">🥗</i><span>Plan de alimentación simplificado</span></p>
@@ -348,7 +361,7 @@
   <footer class="foot">
     <p><a href="terminos.html">Términos de uso</a> • <a href="privacidad.html">Política de privacidad</a></p>
     <p style="margin-top:10px">🔒 Pago 100% seguro • Garantía de 45 días</p>
-    <p style="margin-top:14px">Copyright 2026 © Método Glúteos Brasileños. Todos los derechos reservados.</p>
+    <p style="margin-top:14px">Copyright 2026 © <span class="br-word on-dark">Método Glúteos Brasileños</span>. Todos los derechos reservados.</p>
     <p class="foot__legal">
       Este producto no sustituye la orientación de un profesional de la salud.
       Los resultados dependen del punto de partida, la constancia y la alimentación

@@ -972,3 +972,190 @@ body.quiz-page{background:var(--ink);}
 
 /* Nota bajo los botones — en oscuro necesita más peso que en claro */
 .quiz-page .btn-note{color:rgba(255,255,255,.8);font-size:14px;}
+
+
+/* =========================================================
+   ==========  TEMA OSCURO DE LA OFERTA (oferta.html)  =====
+   Campo de degradado violeta en lugar de negro plano.
+   ========================================================= */
+body.offer{
+  background:
+    radial-gradient(90% 40% at 50% 12%,rgba(236,15,140,.16),transparent 60%),
+    linear-gradient(180deg,#2E0B44 0%,#3A1157 26%,#2A0B3D 58%,#1A0620 100%);
+  background-attachment:fixed;
+}
+.offer .shell{background:transparent;color:var(--white);box-shadow:none;}
+@media (min-width:768px){
+  body.offer{background-color:#1A0620;}
+  .offer .shell{box-shadow:0 0 80px rgba(0,0,0,.6);}
+}
+
+/* ---- Barra de tiempo ---- */
+.offer .timerbar{background:rgba(12,3,16,.94);backdrop-filter:blur(10px);}
+
+/* ---- Hero a sangre ---- */
+.offer-hero{background:transparent;padding:26px 0 0;}
+.offer-hero__inner{padding:0 var(--pad);}
+.offer-hero h1{
+  font-size:clamp(36px,10.5vw,48px);
+  background:linear-gradient(96deg,#FF3DA6 0%,#E96BE0 48%,#B98CFF 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  filter:drop-shadow(0 4px 18px rgba(236,15,140,.45));
+}
+.offer-hero__sub{font-size:16.5px;color:rgba(255,255,255,.86);margin-top:14px;}
+.offer-hero__meta{margin-top:14px;font-size:15.5px;font-weight:800;color:var(--br-yellow);}
+.offer-hero__img{margin-top:18px;width:100%;}
+
+/* ---- Precio ---- */
+.offer .price{background:transparent;padding:28px var(--pad) 30px;}
+.offer .price__old{color:rgba(255,255,255,.72);font-size:16.5px;}
+.offer .price__now{
+  background:linear-gradient(96deg,#FF3DA6,#E96BE0 55%,#B98CFF);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  filter:drop-shadow(0 4px 20px rgba(236,15,140,.4));
+}
+.offer .price__per{color:rgba(255,255,255,.82);font-size:15px;}
+.offer .trust{color:rgba(255,255,255,.78);font-size:12.5px;}
+
+/* ---- Secciones ---- */
+.offer .sec--tint{background:rgba(255,255,255,.03);}
+.offer .sec__title{color:var(--white);}
+.offer .sec__lead{color:rgba(255,255,255,.8);font-size:15.5px;}
+.offer .sec__eyebrow{color:var(--magenta-soft);}
+
+/* ---- Beneficios como filas ---- */
+.offer .benefit{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  box-shadow:none;border-radius:14px;
+}
+.offer .benefit__ico{background:rgba(74,222,128,.16);color:#4ADE80;}
+.offer .benefit b{color:var(--white);font-size:15.5px;}
+.offer .benefit span span,
+.offer .benefit > span > span{color:rgba(255,255,255,.78);font-size:14.5px;}
+
+/* ---- GIFs ---- */
+.offer .gif{box-shadow:0 14px 34px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1);}
+
+/* =========================================================
+   PRUEBAS — carrusel con asomo del siguiente
+   Una pantalla en lugar de seis, sin perder tamaño de imagen.
+   ========================================================= */
+.proofs{margin-top:20px;}
+.proofs__rail{
+  display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;
+  padding:4px var(--pad) 14px;margin:0 calc(var(--pad) * -1);
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;
+}
+.proofs__rail::-webkit-scrollbar{display:none;}
+.proofs__card{
+  flex:0 0 82%;scroll-snap-align:center;
+  border-radius:var(--r-lg);overflow:hidden;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 18px 44px rgba(0,0,0,.5);
+}
+.proofs__img{position:relative;}
+.proofs__img img{width:100%;display:block;}
+/* Etiquetas ANTES / DESPUÉS sobre cada mitad */
+.proofs__ba{position:absolute;left:0;right:0;bottom:0;display:flex;}
+.proofs__ba span{
+  flex:1;text-align:center;padding:7px 4px;
+  font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--white);background:rgba(12,3,16,.78);backdrop-filter:blur(4px);
+}
+.proofs__ba span + span{background:linear-gradient(90deg,rgba(236,15,140,.9),rgba(139,47,214,.9));}
+.proofs__foot{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:12px 14px;
+}
+.proofs__stars{color:var(--amber);font-size:13px;letter-spacing:1.5px;}
+.proofs__days{
+  font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  color:#FFA9D6;background:rgba(236,15,140,.16);
+  border:1px solid rgba(255,61,166,.34);padding:5px 10px;border-radius:99px;
+}
+.proofs__nav{
+  display:flex;align-items:center;justify-content:center;gap:14px;margin-top:4px;
+}
+.proofs__dots{display:flex;gap:6px;}
+.proofs__dot{
+  width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.24);
+  transition:background .25s,width .25s;
+}
+.proofs__dot.is-on{background:var(--magenta-soft);width:20px;border-radius:99px;}
+.proofs__count{
+  font-size:12.5px;font-weight:800;color:rgba(255,255,255,.74);
+  letter-spacing:.04em;
+}
+.proofs__hint{
+  text-align:center;font-size:13px;color:rgba(255,255,255,.7);margin-top:10px;
+}
+
+/* ---- Bonos ---- */
+.offer .bonus{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  border-left:4px solid var(--magenta);box-shadow:none;
+}
+.offer .bonus b{color:var(--white);}
+.offer .bonus p{color:rgba(255,255,255,.78);font-size:14.5px;}
+.offer .bonus__val{color:#FFA9D6;}
+.offer .bonus__val s{color:rgba(255,255,255,.6);}
+
+/* ---- Cupos de soporte ---- */
+.offer .note{
+  background:linear-gradient(165deg,rgba(139,47,214,.18),rgba(26,6,32,.35));
+  border:1px solid rgba(255,255,255,.1);box-shadow:0 18px 42px rgba(0,0,0,.42);
+}
+.offer .note__top{
+  background:linear-gradient(120deg,rgba(236,15,140,.2),rgba(139,47,214,.2));
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+.offer .note__body{background:transparent;}
+.offer .note__body p{color:rgba(255,255,255,.85);font-size:15.5px;}
+.offer .note__body strong{color:var(--white);}
+.offer .bar{background:rgba(255,255,255,.14);}
+
+/* ---- Caja final ---- */
+.offer .getbox{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,61,166,.3);
+  box-shadow:0 24px 60px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.06);
+}
+.offer .getbox__top .price__now{
+  background:none;-webkit-text-fill-color:var(--white);color:var(--white);filter:none;
+}
+.offer .getbox__item{color:rgba(255,255,255,.9);font-size:15px;}
+
+/* ---- Garantía ---- */
+.offer .guarantee{
+  background:rgba(255,255,255,.04);border:2px dashed rgba(255,255,255,.2);
+}
+.offer .guarantee h3{color:var(--white);}
+.offer .guarantee p{color:rgba(255,255,255,.82);font-size:15px;}
+
+/* ---- FAQ ---- */
+.offer .faq details{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  box-shadow:none;
+}
+.offer .faq summary{color:var(--white);padding:17px 46px 17px 16px;}
+.offer .faq__a{color:rgba(255,255,255,.82);font-size:15px;}
+
+/* ---- Footer ---- */
+.offer .foot{background:rgba(12,3,16,.6);}
+
+/* ---- CTA fija ---- */
+.offer .stickycta{
+  background:rgba(18,5,26,.93);border-top:1px solid rgba(255,255,255,.12);
+}
+
+/* ---- Aviso de compra ---- */
+.offer .sp{
+  background:rgba(30,10,42,.96);border:1px solid rgba(255,255,255,.14);
+  backdrop-filter:blur(10px);
+}
+.offer .sp__txt b{color:var(--white);}
+.offer .sp__txt span{color:rgba(255,255,255,.78);}
+.offer .sp__time{color:rgba(255,255,255,.6);}
+.offer .sp__x{color:rgba(255,255,255,.7);}
+.offer .disclaimer{color:rgba(255,255,255,.74);font-size:13px;}

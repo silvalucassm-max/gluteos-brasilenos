@@ -24,7 +24,9 @@
   --br-yellow:      #FFDF00;
 
   --grad-brand: linear-gradient(100deg, var(--magenta) 0%, var(--purple) 100%);
-  --grad-br:    linear-gradient(96deg, var(--br-green) 0%, #4FD14F 38%, var(--br-yellow) 100%);
+  /* Bandeira clareada: o verde original (#009C3B) dá 4,16:1 sobre o
+     roxo do fundo e some. Estes três tons passam todos de 8:1. */
+  --grad-br:    linear-gradient(96deg, #2BE07A 0%, #8FE83F 46%, #FFE23D 100%);
 
   --shadow-sm: 0 2px 8px rgba(76,20,112,.08);
   --shadow-md: 0 8px 24px rgba(76,20,112,.12);
@@ -87,10 +89,19 @@ p{margin:0;}
   background:var(--grad-br);
   -webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;color:transparent;
-  filter:drop-shadow(0 2px 0 rgba(0,0,0,.16));
+  font-weight:900;
+  filter:drop-shadow(0 2px 10px rgba(139,232,63,.3));
   white-space:nowrap;
 }
-.br-word.on-dark{filter:drop-shadow(0 2px 6px rgba(0,0,0,.45));}
+.br-word.on-dark{filter:drop-shadow(0 2px 12px rgba(139,232,63,.35));}
+
+/* Marca completa — "Método Glúteos Brasileños" com a bandeirinha.
+   Usar sempre que o nome do produto aparecer em texto corrido. */
+.method{white-space:nowrap;font-weight:900;}
+.method__flag{
+  display:inline-block;margin-left:3px;font-size:.86em;
+  vertical-align:baseline;filter:none;-webkit-text-fill-color:initial;
+}
 
 /* ---------- BOTONES ---------- */
 .btn{
@@ -1030,7 +1041,14 @@ body.offer{
   background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
   box-shadow:none;border-radius:14px;
 }
-.offer .benefit__ico{background:rgba(74,222,128,.16);color:#4ADE80;}
+.offer .benefit__ico{
+  width:42px;height:42px;border-radius:13px;
+  background:linear-gradient(140deg,rgba(236,15,140,.24),rgba(139,47,214,.24));
+  border:1px solid rgba(255,61,166,.3);
+  color:var(--magenta-soft);display:grid;place-items:center;
+}
+.offer .benefit__ico svg{width:22px;height:22px;}
+.offer .benefit{align-items:center;gap:14px;padding:16px 15px;}
 .offer .benefit b{color:var(--white);font-size:15.5px;}
 .offer .benefit span span,
 .offer .benefit > span > span{color:rgba(255,255,255,.78);font-size:14.5px;}
@@ -1056,7 +1074,13 @@ body.offer{
   box-shadow:0 18px 44px rgba(0,0,0,.5);
 }
 .proofs__img{position:relative;}
-.proofs__img img{width:100%;display:block;}
+/* Todas as fotos no mesmo quadrado: os arquivos vêm em 1:1, 0.94:1 e
+   1.25:1, e a altura variável fazia o carrossel pular ao deslizar. */
+.proofs__img img{
+  width:100%;display:block;
+  aspect-ratio:1/1;object-fit:cover;object-position:50% 42%;
+  background:rgba(255,255,255,.04);
+}
 /* Etiquetas ANTES / DESPUÉS sobre cada mitad */
 .proofs__ba{position:absolute;left:0;right:0;bottom:0;display:flex;}
 .proofs__ba span{
@@ -1159,3 +1183,69 @@ body.offer{
 .offer .sp__time{color:rgba(255,255,255,.6);}
 .offer .sp__x{color:rgba(255,255,255,.7);}
 .offer .disclaimer{color:rgba(255,255,255,.74);font-size:13px;}
+
+/* ---- Ícones (sprite SVG) ---- */
+.ico{
+  width:22px;height:22px;display:block;
+  fill:none;stroke:currentColor;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.sprite{position:absolute;width:0;height:0;overflow:hidden;}
+
+/* ---- Bônus com ícone ---- */
+.offer .bonus{align-items:flex-start;gap:13px;padding:16px 15px;}
+.bonus__ico{
+  flex:0 0 auto;width:46px;height:46px;border-radius:14px;
+  display:grid;place-items:center;
+  background:linear-gradient(140deg,rgba(236,15,140,.26),rgba(139,47,214,.26));
+  border:1px solid rgba(255,61,166,.32);
+  color:var(--magenta-soft);
+}
+.bonus__ico svg{width:24px;height:24px;}
+.bonus__head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:5px;}
+.offer .bonus__free{margin:0;}
+
+/* =========================================================
+   PÁGINAS LEGALES (términos / privacidad)
+   ========================================================= */
+body.legal{
+  background:linear-gradient(180deg,#2E0B44 0%,#1A0620 60%);
+  background-attachment:fixed;
+}
+.legal .shell{background:transparent;color:var(--white);}
+.legal__head{
+  padding:26px var(--pad) 20px;border-bottom:1px solid rgba(255,255,255,.12);
+}
+.legal__head h1{font-size:clamp(26px,7.4vw,34px);}
+.legal__updated{
+  margin-top:10px;font-size:13.5px;color:rgba(255,255,255,.74);
+}
+.legal__body{padding:24px var(--pad) 50px;}
+.legal__body h2{
+  font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;
+  font-size:19px;letter-spacing:.01em;color:var(--magenta-soft);
+  margin:30px 0 10px;
+}
+.legal__body h2:first-child{margin-top:0;}
+.legal__body p,
+.legal__body li{font-size:15px;color:rgba(255,255,255,.86);line-height:1.65;}
+.legal__body p + p{margin-top:11px;}
+.legal__body ul{margin:11px 0 0;padding-left:20px;}
+.legal__body li + li{margin-top:7px;}
+.legal__body strong{color:var(--white);}
+.legal__body a{color:#FFA9D6;}
+/* Marcador de dato por completar */
+.fill{
+  background:rgba(255,223,61,.16);border:1px dashed rgba(255,226,61,.5);
+  color:#FFE23D;padding:1px 7px;border-radius:5px;font-weight:800;
+  font-size:.94em;white-space:nowrap;
+}
+.legal__note{
+  margin:0 var(--pad) 24px;padding:15px 16px;border-radius:var(--r-md);
+  background:rgba(236,15,140,.1);border:1px solid rgba(255,61,166,.32);
+  font-size:14px;color:#FFD6EC;
+}
+.legal__back{
+  display:inline-block;margin-top:26px;font-size:14.5px;font-weight:800;
+  color:#FFA9D6;text-decoration:none;
+}
